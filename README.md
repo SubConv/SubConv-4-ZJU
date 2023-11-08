@@ -1,12 +1,12 @@
-# Subscription Converter
-![license](https://img.shields.io/github/license/SubConv/SubConv) ![last commit](https://img.shields.io/github/last-commit/SubConv/SubConv)  
-这个项目是面向所有Clash用户的订阅转换，如果你需要ZJU专版，请移步[SubConv 4 ZJU](https://github.com/SubConv/SubConv-4-ZJU)  
+# Subscription Converter (for ZJUers)
+![license](https://img.shields.io/github/license/SubConv/SubConv-4-ZJU) ![last commit](https://img.shields.io/github/last-commit/SubConv/SubConv)  
+这是 [sub-conv](https://github.com/SubConv/SubConv) 的一个fork，是ZJU专版的 [SubConv](https://github.com/SubConv/SubConv) ，但是由于不能fork自己的项目，我已我手动开了一个仓库  
 这是一个Clash订阅转换接口(仅提供试用，不保证安全性及可用性)  
 
 ## 功能
 - 支持Clash配置和V2ray格式的base64链接（即原始订阅不一定是Clash）  
 - 一个可以勉强能看的订阅转换 Web-UI (感谢 [@Musanico](https://github.com/musanico))  
-- 大体基于 ACL 的规则  
+- 大体基于 ACL 的规则（包括了ZJU专用规则）  
 - 基于 Provider 的节点自动更新  
 - （为土豪）多机场用户提供了支持  
 - 剩余流量和总流量的显示（单机场的时候才有用，需要你的机场和你用的Clash同时支持，已知Clash for Windows, Clash Verge, Stash, Clash Meta for Android等已支持）  
@@ -35,4 +35,4 @@
 - ~~[Proxy Provider Converter](https://github.com/qier222/proxy-provider-converter)~~  
 
 ## 许可证
-本项目采用 [MPL-2.0 License](https://github.com/SubConv/SubConv/blob/main/LICENSE) 分发  
+本项目采用 [MPL-2.0 License](https://github.com/SubConv/SubConv-4-ZJU/blob/main/LICENSE) 分发  

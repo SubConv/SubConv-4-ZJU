@@ -1,5 +1,12 @@
 
 ruleset = [
+    ["✔ ZJU", "https://raw.githubusercontent.com/wolf2003rain/sub-conv-4-ZJU-deploy/custom-rules/room.list"],
+    ["🎯 全球直连", "https://raw.githubusercontent.com/wolf2003rain/sub-conv-4-ZJU-deploy/custom-rules/direct.list"],
+    ["🛸 PT站", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/Ruleset/PrivateTracker.list"],
+    ["✔ ZJU-INTL", "https://raw.githubusercontent.com/wolf2003rain/sub-conv-4-ZJU-deploy/custom-rules/ZJU-INTL.list"],
+    ["✔ ZJU", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/ZJU.list"],
+    ["📃 ZJU More Scholar", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/ZJU-More-Scholar.list"],
+    ["🤖 ChatBot","https://raw.githubusercontent.com/wolf2003rain/sub-conv-4-ZJU-deploy/custom-rules/chat.list"],
     ["🤖 ChatBot", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/Ruleset/OpenAi.list"],
     ["🤖 ChatBot", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/Ruleset/ChatBot.list"],
     ["🎯 全球直连", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/LocalAreaNetwork.list"],
@@ -40,6 +47,7 @@ ruleset = [
 ]
 
 region_dict = {
+    "ZJU": [r"ZJU", "🇨🇳 ZJU节点"],
     "HK": [r"🇭🇰|HK|Hong|Kong|HGC|WTT|CMI|港", "🇭🇰 香港节点"],
     "TW": [r"🇹🇼|TW|Taiwan|新北|彰化|CHT|台|HINET", "🇨🇳 台湾节点"],
     "SG": [r"🇸🇬|SG|Singapore|狮城|^新[^节北]|[^刷更]新[^节北]", "🇸🇬 狮城节点"],
@@ -52,6 +60,7 @@ custom_proxy_group = [
     {
         "name": "♻️ 自动选择",
         "type": "url-test",
+        "regex": "^(?!.*(ZJU|浙大|内网|✉️)).*",
         "rule": False
     },
     {
@@ -63,11 +72,13 @@ custom_proxy_group = [
     {
         "name": "🔯 故障转移",
         "type": "fallback",
+        "regex": "^(?!.*(ZJU|浙大|内网|✉️)).*",
         "rule": False
     },
     {
         "name": "🔮 负载均衡",
         "type": "load-balance",
+        "regex": "^(?!.*(ZJU|浙大|内网|✉️)).*",
         "rule": False
     },
     {
@@ -75,6 +86,21 @@ custom_proxy_group = [
         "type": "load-balance",
         "rule": False,
         "region": ["HK"]
+    },
+    {
+        "name": "✔ ZJU-INTL",
+        "type": "select",
+        "prior": "DIRECT"
+    },
+    {
+        "name": "✔ ZJU",
+        "type": "select",
+        "prior": "DIRECT"
+    },
+    {
+        "name": "📃 ZJU More Scholar",
+        "type": "select",
+        "prior": "DIRECT"
     },
     {
         "name": "🤖 ChatBot",
@@ -148,6 +174,11 @@ custom_proxy_group = [
     },
     {
         "name": "🎶 Spotify",
+        "type": "select",
+        "prior": "DIRECT"
+    },
+    {
+        "name": "🛸 PT站",
         "type": "select",
         "prior": "DIRECT"
     },

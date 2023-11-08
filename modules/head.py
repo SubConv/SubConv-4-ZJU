@@ -23,6 +23,23 @@ DNS = {
             "https://223.5.5.5/dns-query",
             "https://1.12.12.12/dns-query",
             "https://8.8.8.8/dns-query"
+        ],
+        "fallback-filter": {
+            "geoip": False,
+            "domain": [
+                "+.zju.edu.cn"
+            ]
+        },
+        "fallback": [
+            "https://1.1.1.1/dns-query",
+            "https://8.8.8.8/dns-query",
+            "tcp://10.10.0.21",
+            "tcp://10.105.1.122"
+        ],
+        "fake-ip-filter": [
+            "+.lan",
+            "+.microsoft*.com",
+            "+.geniucker.top"
         ]
     }
 }

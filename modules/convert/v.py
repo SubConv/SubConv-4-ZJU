@@ -37,7 +37,7 @@ def handleVShareLink(names: dict, url: urlparse.ParseResult, scheme: str, proxy:
         }
     
     switch = get(query.get("packetEncoding"))
-    if switch == "none":
+    if switch == "none" or switch == "":
         pass
     elif switch == "packet":
         proxy["packet-addr"] = True
@@ -54,7 +54,7 @@ def handleVShareLink(names: dict, url: urlparse.ParseResult, scheme: str, proxy:
         network = "h2"
     proxy["network"] = network
     if network == "tcp":
-        if fakeType != "none":
+        if fakeType != "none" and fakeType != "":
             headers = {}
             httpOpts = {}
             httpOpts["path"] = "/"

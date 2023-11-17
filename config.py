@@ -1,12 +1,9 @@
 
 ruleset = [
-    ["✔ ZJU", "https://raw.githubusercontent.com/wolf2003rain/sub-conv-4-ZJU-deploy/custom-rules/room.list"],
-    ["🎯 全球直连", "https://raw.githubusercontent.com/wolf2003rain/sub-conv-4-ZJU-deploy/custom-rules/direct.list"],
     ["🛸 PT站", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/Ruleset/PrivateTracker.list"],
-    ["✔ ZJU-INTL", "https://raw.githubusercontent.com/wolf2003rain/sub-conv-4-ZJU-deploy/custom-rules/ZJU-INTL.list"],
+    ["✔ ZJU-INTL", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/ZJU-INTL.list"],
     ["✔ ZJU", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/ZJU.list"],
     ["📃 ZJU More Scholar", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/ZJU-More-Scholar.list"],
-    ["🤖 ChatBot","https://raw.githubusercontent.com/wolf2003rain/sub-conv-4-ZJU-deploy/custom-rules/chat.list"],
     ["🤖 ChatBot", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/Ruleset/OpenAi.list"],
     ["🤖 ChatBot", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/Ruleset/ChatBot.list"],
     ["🎯 全球直连", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/LocalAreaNetwork.list"],
@@ -42,6 +39,7 @@ ruleset = [
     ["🎯 全球直连", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/ChinaDomain.list"],
     ["🎯 全球直连", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/ChinaCompanyIp.list"],
     ["🎯 全球直连", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/Download.list"],
+    ["✔ ZJU", "https://raw.githubusercontent.com/SubConv/ZJU-Rule/main/Clash/ZJU-IP.list"],
     ["🎯 全球直连", "[]GEOIP,CN"],
     ["🐟 漏网之鱼", "[]FINAL"]
 ]

@@ -1,6 +1,6 @@
 # Subscription Converter (for ZJUers)
 ![license](https://img.shields.io/github/license/SubConv/SubConv-4-ZJU) ![last commit](https://img.shields.io/github/last-commit/SubConv/SubConv)  
-这是 [sub-conv](https://github.com/SubConv/SubConv) 的一个fork，是ZJU专版的 [SubConv](https://github.com/SubConv/SubConv) ，但是由于不能fork自己的项目，我已我手动开了一个仓库  
+这是 [SubConv](https://github.com/SubConv/SubConv) 的一个fork，是ZJU专版的 [SubConv](https://github.com/SubConv/SubConv) ，但是由于不能fork自己的项目，我已我手动开了一个仓库  
 这是一个Clash订阅转换接口(仅提供试用，不保证安全性及可用性)  
 
 ## 功能

@@ -39,7 +39,6 @@ DNS = {
         "fake-ip-filter": [
             "+.lan",
             "+.microsoft*.com",
-            "+.geniucker.top"
         ]
     }
 }

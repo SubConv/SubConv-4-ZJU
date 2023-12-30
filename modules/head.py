@@ -20,7 +20,7 @@ DNS = {
             "1.1.1.1"
         ],
         "nameserver-policy": {
-            "+.zju.edu.cn": "10.10.0.21"
+            "+.zju.edu.cn": ["10.10.0.21", "https://1.1.1.1/dns-query", "https://8.8.8.8/dns-query"],
         },
         "nameserver": [
             "https://223.5.5.5/dns-query",

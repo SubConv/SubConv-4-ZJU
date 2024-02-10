@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # coding=utf-8
-from modules import pack
-from modules import parse
-from modules.convert import converter
 
 from fastapi import FastAPI, HTTPException
 from fastapi.requests import Request
@@ -12,10 +9,54 @@ import uvicorn
 
 import httpx
 
+import yaml
+
 from urllib.parse import urlencode, unquote
 import argparse
 from pathlib import Path
 import re
+
+"""
+main routine
+"""
+if __name__ == "__main__":
+    from modules import config_template
+    # generate config file
+    class GenerateConfigAction(argparse.Action):
+        def __call__(self, parser, namespace, values, option_string=None):
+            yaml.SafeDumper.ignore_aliases = lambda *args : True
+            if values == "default":
+                print(yaml.safe_dump(config_template.template_default, allow_unicode=True, sort_keys=False))
+            elif values == "zju":
+                print(yaml.safe_dump(config_template.template_zju, allow_unicode=True, sort_keys=False))
+            parser.exit()
+
+    # parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", "-P", type=int, default=443, help="port of the api, default: 443")
+    parser.add_argument("--host", "-H", type=str, default="0.0.0.0", help="host of the api, default: 0.0.0.0")
+    parser.add_argument("--version", "-V", action="version", version="version: v2.0.0")
+    parser.add_argument("--generate-config", "-G", type=str, choices=("default", "zju"), action=GenerateConfigAction, help="generate a default config file")
+    args = parser.parse_args()
+
+    # init config
+    from modules import config
+
+    # Debug
+    # uvicorn.run("api:app", host=args.host, port=args.port, reload=True)
+    # Production
+    print("host:", args.host)
+    print("port:", args.port)
+    module_name = __name__.split(".")[0]
+    uvicorn.run(module_name+":app", host=args.host, port=args.port, workers=4)
+
+
+"""
+FastAPI App
+"""
+from modules import pack
+from modules import parse
+from modules.convert import converter
 
 
 def length(sth):
@@ -24,9 +65,7 @@ def length(sth):
     else:
         return len(sth)
 
-
 app = FastAPI()
-
 
 # mainpage
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -166,16 +205,3 @@ async def index(path):
         return FileResponse("static/"+path)
     else:
         raise HTTPException(status_code=404, detail="Not Found")
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--port", "-P", type=int, default=443, help="port of the api, default: 443")
-    parser.add_argument("--host", "-H", type=str, default="0.0.0.0", help="host of the api, default: 0.0.0.0")
-    args = parser.parse_args()
-    print("host:", args.host)
-    print("port:", args.port)
-    # Debug
-    # uvicorn.run("api:app", host=args.host, port=args.port, reload=True)
-    # Production
-    module_name = __name__.split(".")[0]
-    uvicorn.run(module_name+":app", host=args.host, port=args.port, workers=4)

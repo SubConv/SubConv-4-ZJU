@@ -1,0 +1,10 @@
+version: '3'
+services:
+  subconv:
+    image: ghcr.io/subconv/subconv:latest
+    container_name: subconv
+    restart: unless-stopped
+    ports:
+      - "8080:443"
+    volumes:
+      - ./config.yml:/app/config.yml

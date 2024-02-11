@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - dev
     paths:
       - mainpage/**
       - .github/workflows/generate-mainpage.yml
@@ -25,19 +26,15 @@ jobs:
       run:
         working-directory: mainpage
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: main
+      - uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.15.0
-          cache: npm
-          cache-dependency-path: mainpage/package-lock.json
       - name: Install Dependencies
-        run: npm install --prefer-offline
+        run: yarn
       - name: Build
-        run: npm run build
+        run: yarn run build
       - name: move to static
         run: |
           pwd
@@ -47,8 +44,8 @@ jobs:
             rm -rf ../static/*
           fi
           mv dist/* ../static
-          git config --global user.name 'Git bot'
-          git config --global user.email 'bot@noreply.github.com'
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git add -A
           git commit -am "update static" && git push || echo "No changes to commit"

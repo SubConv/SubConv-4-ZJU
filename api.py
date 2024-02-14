@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     # parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", "-P", type=int, default=443, help="port of the api, default: 443")
+    parser.add_argument("--port", "-P", type=int, default=8080, help="port of the api, default: 8080")
     parser.add_argument("--host", "-H", type=str, default="0.0.0.0", help="host of the api, default: 0.0.0.0")
     parser.add_argument("--version", "-V", action="version", version="version: v2.0.0")
     parser.add_argument("--generate-config", "-G", type=str, choices=("default", "zju"), action=GenerateConfigAction, help="generate a default config file")
@@ -81,7 +81,7 @@ async def provider(request: Request):
     url = request.query_params.get("url")
     async with httpx.AsyncClient() as client:
         resp = await client.get(url, headers={'User-Agent':'clash'})
-        if resp.status_code < 200 or resp.status_code >= 300:
+        if resp.status_code < 200 or resp.status_code >= 400:
             raise HTTPException(status_code=resp.status_code, detail=resp.text)
         result = await parse.parseSubs(resp.text)
     return Response(content=result, headers=headers)
@@ -150,8 +150,14 @@ async def sub(request: Request):
         # if there's only one subscription, return userinfo
         if length(url) == 1:
             resp = await client.head(url[0], headers={'User-Agent':'clash'})
-            if resp.status_code < 200 or resp.status_code >= 300:
+            if resp.status_code < 200 or resp.status_code >= 400:
                 raise HTTPException(status_code=resp.status_code, detail=resp.text)
+            elif resp.status_code >= 300 and resp.status_code < 400:
+                while resp.status_code >= 300 and resp.status_code < 400:
+                    url = resp.headers['Location']
+                    resp = await client.head(url, headers={'User-Agent':'clash'})
+                    if resp.status_code < 200 or resp.status_code >= 400:
+                        raise HTTPException(status_code=resp.status_code, detail=resp.text)
             originalHeaders = resp.headers
             if 'subscription-userinfo' in originalHeaders:  # containing info about ramaining flow
                 headers['subscription-userinfo'] = originalHeaders['subscription-userinfo']
@@ -186,7 +192,7 @@ async def proxy(url: str):
             async with client.stream("GET", url, headers={'User-Agent':'clash'}) as resp:
                 yield resp.status_code
                 yield resp.headers
-                if resp.status_code < 200 or resp.status_code >= 300:
+                if resp.status_code < 200 or resp.status_code >= 400:
                     yield await resp.aread()
                     return
                 async for chunk in resp.aiter_bytes():
@@ -194,7 +200,7 @@ async def proxy(url: str):
     streamResp = stream()
     status_code = await streamResp.__anext__()
     headers = await streamResp.__anext__()
-    if status_code < 200 or status_code >= 300:
+    if status_code < 200 or status_code >= 400:
         raise HTTPException(status_code=status_code, detail=await streamResp.__anext__())
     return StreamingResponse(streamResp, media_type=headers['Content-Type'])
 
